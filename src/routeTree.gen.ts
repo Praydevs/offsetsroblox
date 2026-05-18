@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as F4HBNFHRVB34RouteImport } from './routes/F4HBNFHRVB34'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiPublicOffsetsDotjsonRouteImport } from './routes/api/public/offsets[.]json'
 import { Route as ApiPublicOffsetsDothppRouteImport } from './routes/api/public/offsets[.]hpp'
 
 const AuthRoute = AuthRouteImport.update({
@@ -25,14 +25,14 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const F4HBNFHRVB34Route = F4HBNFHRVB34RouteImport.update({
+  id: '/F4HBNFHRVB34',
+  path: '/F4HBNFHRVB34',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicOffsetsDotjsonRoute = ApiPublicOffsetsDotjsonRouteImport.update({
-  id: '/api/public/offsets.json',
-  path: '/api/public/offsets.json',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicOffsetsDothppRoute = ApiPublicOffsetsDothppRouteImport.update({
@@ -43,56 +43,51 @@ const ApiPublicOffsetsDothppRoute = ApiPublicOffsetsDothppRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/F4HBNFHRVB34': typeof F4HBNFHRVB34Route
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/api/public/offsets.hpp': typeof ApiPublicOffsetsDothppRoute
-  '/api/public/offsets.json': typeof ApiPublicOffsetsDotjsonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/F4HBNFHRVB34': typeof F4HBNFHRVB34Route
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/api/public/offsets.hpp': typeof ApiPublicOffsetsDothppRoute
-  '/api/public/offsets.json': typeof ApiPublicOffsetsDotjsonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/F4HBNFHRVB34': typeof F4HBNFHRVB34Route
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/api/public/offsets.hpp': typeof ApiPublicOffsetsDothppRoute
-  '/api/public/offsets.json': typeof ApiPublicOffsetsDotjsonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/F4HBNFHRVB34'
     | '/admin'
     | '/auth'
     | '/api/public/offsets.hpp'
-    | '/api/public/offsets.json'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/admin'
-    | '/auth'
-    | '/api/public/offsets.hpp'
-    | '/api/public/offsets.json'
+  to: '/' | '/F4HBNFHRVB34' | '/admin' | '/auth' | '/api/public/offsets.hpp'
   id:
     | '__root__'
     | '/'
+    | '/F4HBNFHRVB34'
     | '/admin'
     | '/auth'
     | '/api/public/offsets.hpp'
-    | '/api/public/offsets.json'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  F4HBNFHRVB34Route: typeof F4HBNFHRVB34Route
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   ApiPublicOffsetsDothppRoute: typeof ApiPublicOffsetsDothppRoute
-  ApiPublicOffsetsDotjsonRoute: typeof ApiPublicOffsetsDotjsonRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -111,18 +106,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/F4HBNFHRVB34': {
+      id: '/F4HBNFHRVB34'
+      path: '/F4HBNFHRVB34'
+      fullPath: '/F4HBNFHRVB34'
+      preLoaderRoute: typeof F4HBNFHRVB34RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/offsets.json': {
-      id: '/api/public/offsets.json'
-      path: '/api/public/offsets.json'
-      fullPath: '/api/public/offsets.json'
-      preLoaderRoute: typeof ApiPublicOffsetsDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/offsets.hpp': {
@@ -137,10 +132,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  F4HBNFHRVB34Route: F4HBNFHRVB34Route,
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   ApiPublicOffsetsDothppRoute: ApiPublicOffsetsDothppRoute,
-  ApiPublicOffsetsDotjsonRoute: ApiPublicOffsetsDotjsonRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

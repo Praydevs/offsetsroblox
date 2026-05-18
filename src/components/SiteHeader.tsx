@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogIn, Shield, Terminal } from "lucide-react";
+import { Shield, Terminal } from "lucide-react";
 
 export function SiteHeader() {
   const [email, setEmail] = useState<string | null>(null);
@@ -24,7 +24,7 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav className="flex items-center gap-2">
-          {email ? (
+          {email && (
             <>
               <Link to="/admin">
                 <Button variant="ghost" size="sm" className="mono">
@@ -42,12 +42,6 @@ export function SiteHeader() {
                 Sign out
               </Button>
             </>
-          ) : (
-            <Link to="/auth">
-              <Button size="sm" variant="outline" className="mono">
-                <LogIn className="h-4 w-4 mr-1.5" /> Sign in
-              </Button>
-            </Link>
           )}
         </nav>
       </div>

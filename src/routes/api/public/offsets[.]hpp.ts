@@ -1,6 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { toHpp } from "@/lib/format-offsets";
+
+type Row = { name: string; address: string; category: string };
+
+function safeName(name: string) {
+  return name.replace(/[^A-Za-z0-9_]/g, "_");
+}
+
+function toHpp(offsets: Row[]): string {
+  const lines = [
+    "// Roblox Internal Offsets",
+    `// Generated: ${new Date().toISOString()}`,
+    "#pragma once",
+    "",
+    "namespace Offsets {",
+  ];
+  const byCat = new Map<string, Row[]>();
+  for (const o of offsets) {
+    if (!byCat.has(o.category)) byCat.set(o.category, []);
+    byCat.get(o.category)!.push(o);
+  }
+  for (const [cat, items] of byCat) {
+    lines.push(`    // ${cat}`);
+    for (const o of items) {
+      lines.push(`    constexpr auto ${safeName(o.name)} = ${o.address};`);
+    }
+    lines.push("");
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
 
 export const Route = createFileRoute("/api/public/offsets.hpp")({
   server: {
