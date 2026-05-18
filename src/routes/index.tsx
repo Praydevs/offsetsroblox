@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
-import { Check, Copy, Download, FileJson, FileCode, Search, Activity } from "lucide-react";
+import { Check, Copy, Download, FileCode, Search, Activity } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,9 +13,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Roblox Internal Offsets — live registry" },
-      { name: "description", content: "Live registry of Roblox internal offsets. Browse, copy, or download as .hpp / .json." },
+      { name: "description", content: "Live registry of Roblox internal offsets. Browse, copy, or download as .hpp." },
       { property: "og:title", content: "Roblox Internal Offsets" },
-      { property: "og:description", content: "Live registry of Roblox internal offsets — .hpp and .json downloads." },
+      { property: "og:description", content: "Live registry of Roblox internal offsets — .hpp download." },
     ],
   }),
   component: Index,
@@ -81,11 +81,11 @@ function Index() {
           </h1>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
             A live, copy-paste-friendly registry. Updated by admins, served as
-            <span className="mono"> .hpp</span> and <span className="mono">.json</span>.
+            <span className="mono"> .hpp</span>.
           </p>
 
           {/* download cards */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+          <div className="mt-8 grid grid-cols-1 gap-3 max-w-md mx-auto">
             <a
               href="/api/public/offsets.hpp"
               className="group rounded-xl border border-border/60 bg-card/60 hover:border-primary/60 transition p-5 text-left"
@@ -98,23 +98,6 @@ function Index() {
                   <div>
                     <div className="mono text-sm">offsets.hpp</div>
                     <div className="text-xs text-muted-foreground">C++ header file</div>
-                  </div>
-                </div>
-                <Download className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
-              </div>
-            </a>
-            <a
-              href="/api/public/offsets.json"
-              className="group rounded-xl border border-border/60 bg-card/60 hover:border-primary/60 transition p-5 text-left"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <FileJson className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="mono text-sm">offsets.json</div>
-                    <div className="text-xs text-muted-foreground">Universal JSON format</div>
                   </div>
                 </div>
                 <Download className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
@@ -139,10 +122,7 @@ function Index() {
           {isLoading && <p className="text-center text-muted-foreground mono text-sm">loading…</p>}
           {!isLoading && grouped.length === 0 && (
             <div className="text-center py-16 border border-dashed border-border/60 rounded-xl">
-              <p className="text-muted-foreground">No offsets yet.</p>
-              <Link to="/auth" className="mono text-sm text-primary hover:underline">
-                Sign in to post the first one →
-              </Link>
+              <p className="text-muted-foreground mono text-sm">No offsets yet.</p>
             </div>
           )}
           {grouped.map(([cat, items]) => (
@@ -182,12 +162,12 @@ function Index() {
         <footer className="mt-20 text-center mono text-xs text-muted-foreground">
           <button
             onClick={() => {
-              navigator.clipboard.writeText(window.location.origin + "/api/public/offsets.json");
+              navigator.clipboard.writeText(window.location.origin + "/api/public/offsets.hpp");
               toast.success("API URL copied");
             }}
             className="hover:text-primary"
           >
-            {typeof window !== "undefined" ? window.location.host : ""}/api/public/offsets.json
+            /api/public/offsets.hpp
           </button>
         </footer>
       </main>
