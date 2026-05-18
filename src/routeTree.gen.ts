@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicOffsetsDotjsonRouteImport } from './routes/api/public/offsets[.]json'
+import { Route as ApiPublicOffsetsDothppRouteImport } from './routes/api/public/offsets[.]hpp'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const ApiPublicOffsetsDotjsonRoute = ApiPublicOffsetsDotjsonRouteImport.update({
   path: '/api/public/offsets.json',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicOffsetsDothppRoute = ApiPublicOffsetsDothppRouteImport.update({
+  id: '/api/public/offsets.hpp',
+  path: '/api/public/offsets.hpp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/public/offsets.hpp': typeof ApiPublicOffsetsDothppRoute
   '/api/public/offsets.json': typeof ApiPublicOffsetsDotjsonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/public/offsets.hpp': typeof ApiPublicOffsetsDothppRoute
   '/api/public/offsets.json': typeof ApiPublicOffsetsDotjsonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/public/offsets.hpp': typeof ApiPublicOffsetsDothppRoute
   '/api/public/offsets.json': typeof ApiPublicOffsetsDotjsonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/offsets.json'
+  fullPaths: '/' | '/api/public/offsets.hpp' | '/api/public/offsets.json'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/offsets.json'
-  id: '__root__' | '/' | '/api/public/offsets.json'
+  to: '/' | '/api/public/offsets.hpp' | '/api/public/offsets.json'
+  id: '__root__' | '/' | '/api/public/offsets.hpp' | '/api/public/offsets.json'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPublicOffsetsDothppRoute: typeof ApiPublicOffsetsDothppRoute
   ApiPublicOffsetsDotjsonRoute: typeof ApiPublicOffsetsDotjsonRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicOffsetsDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/offsets.hpp': {
+      id: '/api/public/offsets.hpp'
+      path: '/api/public/offsets.hpp'
+      fullPath: '/api/public/offsets.hpp'
+      preLoaderRoute: typeof ApiPublicOffsetsDothppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPublicOffsetsDothppRoute: ApiPublicOffsetsDothppRoute,
   ApiPublicOffsetsDotjsonRoute: ApiPublicOffsetsDotjsonRoute,
 }
 export const routeTree = rootRouteImport
